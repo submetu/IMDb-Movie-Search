@@ -4,7 +4,7 @@ var MODULE=(function(my,$){
     var $headingDiv=$('<h1></h1>');
     var $ratingDiv=$('<h5></h5>');
     var $topDiv=$('<div class="top-div"></div>');
-    var $goBack=$('<a href="#"><img src="../svg/left-arrow.svg"><h5 id="go-back">Search results</h5></a>');
+    var $goBack=$('<a href="#"><img src="svg/leftarrow.svg"><h5 id="go-back">Search results</h5></a>');
     var $titleDiv=$('<div class="title-div col-xs-4"></div>');
     var $titleImg=$('<img>');
     var $descriptionDiv=$('<div class="description-div col-xs-8"></div>');
