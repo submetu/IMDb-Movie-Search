@@ -12,33 +12,10 @@ var MODULE=(function(my,$){
         //get the input text of the year field
         var year=$('#year').val();
         //set the variable api equal to the omdb api website with some query string parameters
-        var api="http://www.omdbapi.com/?s="+title+"&y="+year+"&r=json&plot=full&callback=callBack";
+        var api="http://www.omdbapi.com/?s="+title+"&y="+year+"&r=json&plot=full";
         
-        //using AJAX to get json
-        var req = new XMLHttpRequest();
-        req.open("GET", api, true);
-        req.onreadystatechange=function() {
-           if (req.readyState==4 && req.status==200) {
-               $('#movies').hide();
-                $('.main').hide();
-               //the req.responseText is wrapped in a function named callBack. Evaluate this function(funciton is defined above)
-               //This is marked HARMFUL by jsHint. But its not harmful.
-                eval(req.responseText);
-           }
-            //if the server doesn't response with a status code of 200
-            else{
-                $movieList.html("<li class='no-movies'><i class='material-icons icon-help'>help_outline</i>Server not repsonding!</li> ");
-            }
-        };
-        //send the AJAX request
-        req.send();
-        
-        });//end submit event
-    
-    
-        //call back function run after the ajax call in line 67 in sent
-        //This function is evaluated as an unused variable by jhHint however it is used
-        function callBack(data){
+        //sending ajax request to OMDb to display movie data
+        $.get(api,function callBack(data){
                 //show the movies div
                 $('#movies').show();
                 //hide the main (description page) div
@@ -70,7 +47,11 @@ var MODULE=(function(my,$){
                     html="<li class='no-movies'><i class='material-icons icon-help'>help_outline</i>No movies found that match:"+ title+".</li> ";
                     $movieList.html(html);
                 }
-            } //end callback function
+            });
+
+        });//end submit event
+    
+        
         
     
     return my;

@@ -2,6 +2,7 @@ var MODULE=(function(my,$){
     // description page variables
     var $mainDescriptionDiv=$('<div class="main row"></div>');
     var $headingDiv=$('<h1></h1>');
+    var $headingDivAnchor=$('<a href="#" target="_blank"></a>');
     var $ratingDiv=$('<h5></h5>');
     var $topDiv=$('<div class="top-div"></div>');
     var $goBack=$('<a href="#"><img src="svg/leftarrow.svg"><h5 id="go-back">Search results</h5></a>');
@@ -13,7 +14,8 @@ var MODULE=(function(my,$){
     var $button=$('<a href="#" class="btn btn-primary" id="button-imdb" target="_blank">View on IMDB</a>');
     
     //setup
-    $topDiv.append($goBack).append($headingDiv).append($ratingDiv);
+    $headingDivAnchor.append($headingDiv);
+    $topDiv.append($goBack).append($headingDivAnchor).append($ratingDiv);
     $titleDiv.append($titleImg); //append $titleImg into $titleDiv
     $descriptionDiv.append($descriptionHeading).append($descriptionPara).append($button);
     $mainDescriptionDiv.append($topDiv).append($titleDiv).append($descriptionDiv).hide();
@@ -55,21 +57,16 @@ var MODULE=(function(my,$){
             //set the image url of the title image
             $titleDiv.html('<img>');
             $titleDiv.children().attr("src","http://img.omdbapi.com/?apikey=fe9f4454&i="+response.imdbID);
-            //set the button href attribute o
+            //set the button href attribute 
             $button.attr("href",imdbId);
-            
+            //set the imdb url of the movie title link
+            $headingDivAnchor.attr("href",imdbId);
             //if the image url returns 'N/A'
             if(imgUrl==='N/A'){
                 $titleDiv.html('<i class="material-icons poster-placeholder">crop_original</i></div>');
             }
             //scroll to the top of the page
             window.scrollTo(0, 0);
-            
-            //Click listener on the title
-            $('.top-div h1').on("click",function(){
-                window.open(imdbId);        
-            });//end click listener
-            
             //show the description page of the clicked movie
             $mainDescriptionDiv.show();
         });//end ajax call
